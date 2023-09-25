@@ -38,7 +38,12 @@ jobs:
       - name: Compress Artifacts
         shell: bash
         run: |
-          dir="artifacts" # Replace with your subdirectory
+          dir="artifacts"
+          if [ ! -d "$dir" ]; then
+            echo "Directory $dir does not exist. No artifacts found."
+            exit 0
+          fi
+
           for subdir in "$dir"/*; do
             if [ -d "$subdir" ]; then
               base=$(basename "$subdir")
