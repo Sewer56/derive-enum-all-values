@@ -2,7 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/derive-enum-all-values.svg)](https://crates.io/crates/derive-enum-all-values)
 [![Docs.rs](https://docs.rs/derive-enum-all-values/badge.svg)](https://docs.rs/derive-enum-all-values)
-[![CI](https://github.com/Sewer56/derive-enum-all-values/workflows/CI/badge.svg)](https://github.com/Sewer56/derive-enum-all-values/actions)
+[![CI](https://github.com/Sewer56/derive-enum-all-values/actions/workflows/rust.yml/badge.svg)](https://github.com/Sewer56/derive-enum-all-values/actions)
 
 ## About
 
