@@ -5,6 +5,7 @@ edition = "2021"
 description = "A procedural derive macro which exposes a method named `all_values` that returns all defined values as a compile-time static."
 repository = "https://github.com/Sewer56/derive-enum-all-values"
 license-file = "LICENSE"
+readme = "README.MD"
 include = ["src/**/*"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

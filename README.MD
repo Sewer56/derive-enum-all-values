@@ -8,6 +8,46 @@
 
 A procedural derive macro which exposes a method named `all_values` that returns all defined values as a compile-time static.
 
+## Usage
+
+Add `derive_enum_all_values` to your `Cargo.toml`:
+
+```toml
+[dependencies]
+derive_enum_all_values = "0.1.0"
+```
+
+And then derive `AllValues` for your enum:
+
+```rust
+use derive_enum_all_values::AllValues;
+
+#[derive(AllValues)]
+enum MyEnum {
+    Variant1,
+    Variant2,
+    // ... other variants ...
+}
+
+fn main() {
+    for variant in MyEnum::all_values() {
+        println!("{:?}", variant);
+    }
+}
+```
+
+This macro generates the following code:
+
+```rust
+impl MyEnum {
+    pub fn all_values() -> &'static [MyEnum] {
+        &[MyEnum::Variant1, MyEnum::Variant2]
+    }
+}
+```
+
+A static, compile time known array containing every enum value.
+
 ## Development
 
 How to develop this project.
