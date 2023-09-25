@@ -1,0 +1,19 @@
+[package]
+name = "derive-enum-all-values"
+version = "0.1.0"
+edition = "2021"
+description = "A procedural derive macro which exposes a method named `all_values` that returns all defined values as a compile-time static."
+repository = "https://github.com/Sewer56/derive-enum-all-values"
+license-file = "LICENSE"
+include = ["src/**/*"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+path = "src/lib.rs"
+proc-macro = true
+
+[dependencies]
+# https://github.com/dtolnay/proc-macro-workshop#debugging-tips
+syn = { version = "*", features = ["extra-traits"] }
+quote = "*"
+proc-macro2 = "*"
