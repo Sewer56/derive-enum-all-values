@@ -10,11 +10,11 @@ A procedural derive macro which exposes a method named `all_values` that returns
 
 ## Usage
 
-Add `derive_enum_all_values` to your `Cargo.toml`:
+Add `derive-enum-all-values` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-derive_enum_all_values = "0.1.0"
+derive-enum-all-values = "0.1.0"
 ```
 
 And then derive `AllValues` for your enum:
