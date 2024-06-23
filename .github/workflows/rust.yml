@@ -10,56 +10,39 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-native:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+  build-and-test:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            use-cross: false
 
-      - id: test-rust
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/test-and-coverage@v1 # upgrade if needed
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Tests and Upload Coverage
+        uses: Reloaded-Project/devops-rust-test-and-coverage@v1
+        with:
+          upload-coverage: false
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}
+          target: ${{ matrix.target }}
+          use-cross: ${{ matrix.use-cross }}
 
   publish-crate:
-    needs: [test-native]
+    permissions:
+      contents: write
+
+    needs: [build-and-test]
     # Publish only on tags
-    if: startsWith(github.ref, 'refs/tags/') 
+    if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Publish Rust Crate and Artifacts  
+        uses: Reloaded-Project/devops-publish-action@v1
         with:
-          submodules: recursive
-
-      - name: ↙️ Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: artifacts
-
-      - name: Compress Artifacts
-        shell: bash
-        run: |
-          dir="artifacts"
-          if [ ! -d "$dir" ]; then
-            echo "Directory $dir does not exist. No artifacts found."
-            exit 0
-          fi
-
-          for subdir in "$dir"/*; do
-            if [ -d "$subdir" ]; then
-              base=$(basename "$subdir")
-              zip -r "$dir/$base.zip" "$subdir"
-              rm -r "$subdir"
-            fi
-          done
-          ls -A ./artifacts
-
-      - name: GitHub Release Artifacts
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            artifacts/*
-
-      - name: Publish to crates.io
-        uses: Reloaded-Project/reloaded-project-configurations-rust/.github/actions/publish-crate@v1
-        with:
-          token: ${{ secrets.CRATES_IO_TOKEN }}
+          crates-io-token: ${{ secrets.CRATES_IO_TOKEN }}
+          rust-project-paths: |
+            .
