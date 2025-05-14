@@ -1,6 +1,6 @@
 [package]
 name = "derive-enum-all-values"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "A procedural derive macro which exposes a method named `all_values` that returns all defined values as a compile-time static."
 repository = "https://github.com/Sewer56/derive-enum-all-values"
