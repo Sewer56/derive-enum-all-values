@@ -16,7 +16,7 @@ pub fn derive_all_variants(input: TokenStream) -> TokenStream {
     let enum_name = syn_item.ident;
     let expanded = quote! {
         impl #enum_name {
-            pub fn all_values() -> &'static[#enum_name] {
+            pub const fn all_values() -> &'static[#enum_name] {
                 &[ #(#enum_name::#variants),* ]
             }
         }

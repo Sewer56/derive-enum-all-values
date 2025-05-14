@@ -11,4 +11,9 @@ fn test_derive_all_values() {
     }
 
     assert_eq!(4, MyEnum::all_values().len());
+
+    // Asserts that `all_values` is a const.
+    const _: &[MyEnum] = MyEnum::all_values();
+    const _: [MyEnum; MyEnum::all_values().len()] = [MyEnum::Value1, MyEnum::Value2, MyEnum::Value3, MyEnum::Value4];
 }
+

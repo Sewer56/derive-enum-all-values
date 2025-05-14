@@ -40,7 +40,7 @@ This macro generates the following code:
 
 ```rust
 impl MyEnum {
-    pub fn all_values() -> &'static [MyEnum] {
+    pub const fn all_values() -> &'static [MyEnum] {
         &[MyEnum::Variant1, MyEnum::Variant2]
     }
 }
