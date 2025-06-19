@@ -16,6 +16,8 @@ pub fn derive_all_variants(input: TokenStream) -> TokenStream {
     let enum_name = syn_item.ident;
     let expanded = quote! {
         impl #enum_name {
+            /// Returns a slice containing all variants (values) of the enum.
+            /// Returned as a const, so can be used in compile time.
             pub const fn all_values() -> &'static[#enum_name] {
                 &[ #(#enum_name::#variants),* ]
             }
